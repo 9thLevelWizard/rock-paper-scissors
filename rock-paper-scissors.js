@@ -1,3 +1,5 @@
+playGame();
+
 function getComputerChoice() {
     
     let randomChoice = Math.floor(Math.random() * (3 - 1 + 1) + 1); // Stores a random number between 1 and 3, inclusive, to use as the computer's choice
@@ -20,48 +22,76 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-let playerChoice = prompt("Rock, Paper, Scissors?").toLowerCase(); // Asks the user for their choice and makes sure it parses as lower-cased
+function playRound() {
 
-function playRound(playerChoice, computerChoice) {
-
+    const playerChoice = prompt("Rock, Paper, Scissors?").toLowerCase(); // Asks the user for their choice and makes sure it parses as lower-cased
+    const computerChoice = getComputerChoice();
     let winner;
 
     switch (true) {
         // Rock outcomes
         case playerChoice === "rock" && computerChoice === "paper":
-            winner = "You lose! Paper beats Rock!";
+            console.log("You lose! Paper beats Rock!");
+            winner = "computer";
             break;
         case playerChoice === "rock" && computerChoice === "scissors":
-            winner = "You win! Rock beats Scissors!";
+            console.log("You win! Rock beats Scissors!");
+            winner = "player";
             break;
         case playerChoice === "rock" && computerChoice === "rock":
-            winner = "You tie! Rock and Rock hang out!";
+            console.log("You tie! Rock and Rock hang out!");
+            winner = "tie";
             break;
         // Paper outcomes
         case playerChoice === "paper" && computerChoice === "rock":
-            winner = "You win! Paper beats Rock!";
+            console.log("You win! Paper beats Rock!");
+            winner = "player";
             break;
         case playerChoice === "paper" && computerChoice === "scissors":
-            winner = "You lose! Scissors beats Paper!";
+            console.log("You lose! Scissors beats Paper!");
+            winner = "computer";
             break;
         case playerChoice === "paper" && computerChoice === "paper":
-            winner = "You tie! Paper and Paper make a document!";
+            console.log("You tie! Paper and Paper make a document!");
+            winner = "tie";
             break;
         // Scissors outcomes
         case playerChoice === "scissors" && computerChoice === "rock":
-            winner = "You lose! Rock beats Scissors!";
+            console.log("You lose! Rock beats Scissors!");
+            winner = "computer";
             break;
         case playerChoice === "scissors" && computerChoice === "paper":
-            winner = "You win! Scissors beats Paper!";
+            console.log("You win! Scissors beats Paper!");
+            winner = "player";
             break;
         case playerChoice === "scissors" && computerChoice === "scissors":
-            winner = "You tie! Scissors and Scissors are put away safely...!";
+            console.log("You tie! Scissors and Scissors are put away safely...!");
+            winner = "tie";
             break;
         // Default outcome
         default:
-            winner = "Invalid game! You're making up objects! Only rock, paper and scissors allowed!";
+            console.log("Invalid game! You're making up objects! Only rock, paper and scissors allowed!");
             break;
     }
 
     return winner;
+}
+
+function playGame() {
+
+    let score = 0;
+
+    for (let i = 1; i <= 5; i++) {
+        let winner = playRound();
+        if (winner === "player") {
+            score++;
+        }
+    }
+
+    if (score >= 3) {
+        console.log(`You won ${score} out of 5 rounds. You won the match!`);
+    }
+    else {
+        console.log(`You won ${score} out of 5 rounds. You lost the match!`);
+    }
 }
