@@ -75,50 +75,30 @@ function playRound(playerChoice) {
     let winner;
 
     switch (true) {
-        // Rock outcomes
-        case playerChoice === "rock" && computerChoice === "paper":
-            showResult("You lose! Paper beats Rock!");
-            winner = "computer";
-            break;
-        case playerChoice === "rock" && computerChoice === "scissors":
-            showResult("You win! Rock beats Scissors!");
+        // Win cases
+        case (playerChoice === "rock" && computerChoice === "scissors") 
+        || (playerChoice === "paper" && computerChoice === "rock")
+        || (playerChoice === "scissors" && computerChoice === "paper"):
+            showResult(`You win! ${playerChoice} beats ${computerChoice}!`);
             winner = "player";
             break;
-        case playerChoice === "rock" && computerChoice === "rock":
-            showResult("You tie! Rock and Rock hang out!");
-            winner = "tie";
-            break;
-        // Paper outcomes
-        case playerChoice === "paper" && computerChoice === "rock":
-            showResult("You win! Paper beats Rock!");
-            winner = "player";
-            break;
-        case playerChoice === "paper" && computerChoice === "scissors":
-            showResult("You lose! Scissors beats Paper!");
+        // Loss cases
+        case (playerChoice === "rock" && computerChoice === "paper")
+        || (playerChoice === "paper" && computerChoice === "scissors")
+        || (playerChoice === "scissors" && computerChoice === "rock"):
+            showResult(`You lose! ${computerChoice} beats ${playerChoice}!`);
             winner = "computer";
             break;
-        case playerChoice === "paper" && computerChoice === "paper":
-            showResult("You tie! Paper and Paper make a document!");
+        // Tie cases
+        case (playerChoice === "rock" && computerChoice === "rock")
+        || (playerChoice === "paper" && computerChoice === "paper")
+        || (playerChoice === "scissors" && computerChoice === "scissors"):
+            showResult(`You tie! ${playerChoice} ties ${computerChoice}!`);
             winner = "tie";
             break;
-        // Scissors outcomes
-        case playerChoice === "scissors" && computerChoice === "rock":
-            showResult("You lose! Rock beats Scissors!");
-            winner = "computer";
-            break;
-        case playerChoice === "scissors" && computerChoice === "paper":
-            showResult("You win! Scissors beats Paper!");
-            winner = "player";
-            break;
-        case playerChoice === "scissors" && computerChoice === "scissors":
-            showResult("You tie! Scissors and Scissors are put away safely...!");
-            winner = "tie";
-            break;
-        // Default outcome
         default:
-            showResult("Invalid game! You're making up objects! Only rock, paper and scissors allowed!");
             break;
-    }
-
+    };
+    
     return winner;
 };
