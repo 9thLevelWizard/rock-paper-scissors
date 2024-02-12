@@ -2,15 +2,21 @@ const body = document.querySelector("body");
 const rockButton = document.querySelector(".rock-button");
 const paperButton = document.querySelector(".paper-button");
 const scissorsButton = document.querySelector(".scissors-button");
+const scoreScreen = document.querySelector(".score-screen");
+let playerScore = 0;
+let computerScore = 0;
 
-rockButton.addEventListener("click", () => {
-    playRound("rock");
+rockButton.addEventListener("click", playRock = function() {
+    let winner = playRound("rock");
+    updateScore(winner);
 });
-paperButton.addEventListener("click", () => {
-    playRound("paper");
+paperButton.addEventListener("click", playPaper = function() {
+    let winner = playRound("paper");
+    updateScore(winner);
 });
-scissorsButton.addEventListener("click", () => {
-    playRound("scissors");
+scissorsButton.addEventListener("click", playScissors = function() {
+    let winner = playRound("scissors");
+    updateScore(winner);
 });
 
 function showResult(message) {
@@ -22,29 +28,37 @@ function showResult(message) {
     body.append(resultScreen);
 };
 
-function countScore(winner) {
-    
-    let playerScore = 0;
-    let computerScore = 0;
-    let totalScore = `${playerScore}-${computerScore}`;
+function updateScore(winner) {
 
     if (winner === "player") {
         playerScore++;
-    }
-    else if (winner === "computer") {
+    };
+    if (winner === "computer") {
         computerScore++;
     };
-    
-    return totalScore;
-};
 
-function showScore() {
+    scoreScreen.textContent = `${playerScore} - ${computerScore}`;
 
-    const scoreScreen = document.createElement("div");
-    scoreScreen.className = "score-screen";
+    if (playerScore >= 5) {
+        const endScreen = document.createElement("div");
+        endScreen.className = "end-screen";
+        endScreen.textContent = "You won the match! Congratulations!";
+        scoreScreen.after(endScreen);
 
-    scoreScreen.textContent = "test";
-    body.append(scoreScreen);  
+        rockButton.removeEventListener("click", playRock);
+        paperButton.removeEventListener("click", playPaper);
+        scissorsButton.removeEventListener("click", playScissors);
+    };
+    if (computerScore >= 5) {
+        const endScreen = document.createElement("div");
+        endScreen.className = "end-screen";
+        endScreen.textContent = "You lost the match! Better luck next time!";
+        scoreScreen.after(endScreen);
+
+        rockButton.removeEventListener("click", playRock);
+        paperButton.removeEventListener("click", playPaper);
+        scissorsButton.removeEventListener("click", playScissors);
+    };
 };
 
 function getComputerChoice() {
@@ -99,6 +113,6 @@ function playRound(playerChoice) {
         default:
             break;
     };
-    
+
     return winner;
 };

@@ -1,0 +1,16 @@
+* {
+    text-align: center;
+}
+
+button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.score-screen {
+    margin-top: 10px;
+}
+
+.result-screen {
+    margin-top: 5px;
+}
